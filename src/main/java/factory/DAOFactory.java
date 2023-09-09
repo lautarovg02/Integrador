@@ -6,6 +6,12 @@ import DAO.ProductoDAO;
 import DAO.ProductoFacturaDAO;
 
 
+import java.sql.Connection;
+
+import java.sql.SQLException;
+
+
+
 public  abstract class DAOFactory {
 
     public static final int MYSQL_JDBC = 1;
@@ -15,6 +21,10 @@ public  abstract class DAOFactory {
     public abstract FacturaDAO getFacturaDAO();
     public abstract ClienteDAO getClienteDAO();
     public abstract ProductoFacturaDAO getProductoFacturaDAO();
+
+
+
+
     public static DAOFactory getDAOFactory(int whichFactory) {
         switch (whichFactory) {
             case MYSQL_JDBC : return new MySqlJDBCDAOFactory();
