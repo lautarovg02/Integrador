@@ -4,6 +4,8 @@ import factory.MySqlJDBCDAOFactory;
 import interfaces.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductoDAO<T> implements DAO<T> {
@@ -12,9 +14,56 @@ public class ProductoDAO<T> implements DAO<T> {
    private String nombre;
    private float valor;
 
+    public ProductoDAO() {
+    }
+
+    public ProductoDAO(int idProducto, String nombre, float valor) {
+        this.idProducto = idProducto;
+        this.nombre = nombre;
+        this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return "\n {" +
+                "idProducto=" + idProducto +
+                ", nombre='" + nombre + '\'' +
+                ", valor=" + valor +
+                '}';
+    }
 
     @Override
     public void insert(Object o) {
+        try{
+            Connection conn = MySqlJDBCDAOFactory.createConnection();
+            ProductoDAO p = (ProductoDAO) o;
+            String insert =  "INSERT INTO producto (idProducto, nombre, valor) VALUES (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(insert);
+            ps.setInt(1, p.getIdProducto());
+            ps.setString(2, p.getNombre());
+            ps.setFloat(3, p.getValor());
+            ps.executeUpdate();
+            ps.close();
+            conn.commit();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void showTable() {
+        try {
+            Connection conn = MySqlJDBCDAOFactory.createConnection();
+            String select = "SELECT * FROM `producto`;";
+            PreparedStatement ps = conn.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getInt(1) + " , " + rs.getString(2) + ", " + rs.getFloat(3) );
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -45,5 +94,29 @@ public class ProductoDAO<T> implements DAO<T> {
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int getIdProducto() {
+        return this.idProducto;
+    }
+
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public float getValor() {
+        return this.valor;
+    }
+
+    public  void setValor(float valor) {
+        this.valor = valor;
     }
 }

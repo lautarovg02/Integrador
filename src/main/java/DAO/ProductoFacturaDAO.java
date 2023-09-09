@@ -10,8 +10,15 @@ public class ProductoFacturaDAO<T> implements DAO<T> {
     private int idFactura;
     private int idProducto;
     private int cantidad;
+
+    @Override
+    public void showTable() {
+
+    }
+
     @Override
     public void insert(T t) {
+
 
     }
 

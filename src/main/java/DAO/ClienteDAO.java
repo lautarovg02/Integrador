@@ -5,6 +5,7 @@ import factory.MySqlJDBCDAOFactory;
 import interfaces.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ClienteDAO<T> implements DAO<T> {
@@ -12,9 +13,70 @@ public class ClienteDAO<T> implements DAO<T> {
     private String nombre;
     private String email;
 
-    @Override
-    public void insert(T t) {
+    public ClienteDAO() {
+    }
 
+    public ClienteDAO(int idCliente, String nombre, String email) {
+        this.idCliente = idCliente;
+        this.nombre = nombre;
+        this.email = email;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public void showTable() {
+
+    }
+
+    @Override
+    public String toString() {
+        return " \n{" +
+                "idCliente=" + idCliente +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    @Override
+    public void insert(Object o) {
+        try{
+            Connection conn = MySqlJDBCDAOFactory.createConnection();
+            ClienteDAO c = (ClienteDAO) o;
+            String insert =  "INSERT INTO cliente (idCliente, nombre, email) VALUES (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(insert);
+            ps.setInt(1, c.getIdCliente());
+            ps.setString(2, c.getNombre());
+            ps.setString(3, c.getEmail());
+            ps.executeUpdate();
+            ps.close();
+            conn.commit();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

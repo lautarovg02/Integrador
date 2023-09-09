@@ -11,6 +11,10 @@ public class FacturaDAO<T> implements DAO<T> {
     private int idCliente;
 
 
+    @Override
+    public void showTable() {
+
+    }
 
     @Override
     public void insert(T t) {
