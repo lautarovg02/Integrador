@@ -7,11 +7,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class main {
     public static void main(String[] args) throws IOException {
@@ -24,29 +21,42 @@ public class main {
         ProductoFacturaDAO productoFacturaDAO = daoFactory.getProductoFacturaDAO();
 
 
+        // PARTE 1
+
+        /*
+        *Creando tablas
+        */
+
         clienteDAO.createTable();
         facturaDAO.createTable();
         productoDAO.createTable();
         productoFacturaDAO.createTable();
 
-
-/*
-        clienteDAO.dropTable();
-        facturaDAO.dropTable();
-        productoDAO.dropTable();
-        productoFacturaDAO.dropTable();
-*/
-
-
-
-        //CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("csv/productos.csv"));
         /*
+        *Eliminando tablas
+        */
+//        clienteDAO.dropTable();
+//        facturaDAO.dropTable();
+//        productoDAO.dropTable();
+//        productoFacturaDAO.dropTable();
+
+
+        //PARTE 2
+
+        CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/productos.csv"));
         for(CSVRecord row: parser) {
-            System.out.println(row.get("idProducto"));
+            System.out.println("\n" + row.get("idProducto"));
             System.out.println(row.get("nombre"));
             System.out.println(row.get("valor"));
         }
-        */
+
+
+//        CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/facturas.csv"));
+//        for(CSVRecord row: parser) {
+//            System.out.println("\n" + row.get("idProducto"));
+//            System.out.println(row.get("nombre"));
+//            System.out.println(row.get("valor"));
+//        }
 
 
 

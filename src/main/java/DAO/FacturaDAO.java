@@ -25,7 +25,7 @@ public class FacturaDAO<T> implements DAO<T> {
             String table = "CREATE TABLE factura (" +
                     "idCliente INT," +
                     "idFactura INT," +
-                    " PRIMARY KEY (idCliente))";
+                    " PRIMARY KEY (idFactura))";
             conn.prepareStatement(table).execute();
             conn.commit();
         }catch (SQLException e) {

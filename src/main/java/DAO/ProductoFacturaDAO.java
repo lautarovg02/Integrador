@@ -24,7 +24,7 @@ public class ProductoFacturaDAO<T> implements DAO<T> {
                     "idFactura INT," +
                     "idProducto INT," +
                     "cantidad INT, " +
-                    "PRIMARY KEY(idFactura))";
+                    "PRIMARY KEY(idFactura, idProducto))";
             conn.prepareStatement(table).execute();
             conn.commit();
         }catch (SQLException e) {
