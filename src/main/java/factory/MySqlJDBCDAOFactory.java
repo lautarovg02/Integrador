@@ -12,7 +12,7 @@ import java.sql.*;
 public class MySqlJDBCDAOFactory extends DAOFactory {
 
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    public static final String DBURL = "jdbc:mysql://localhost:3306/db_tpi";
+    public static final String DBURL = "jdbc:mysql://localhost:3306/integrador1";
 
     // method to create DB connection
     public static Connection createConnection() {

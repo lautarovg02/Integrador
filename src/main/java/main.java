@@ -68,9 +68,5 @@ public class main {
         facturaDAO.showTable();
         productoFacturaDAO.showTable();
 
-
-
-
-
     }
 }
