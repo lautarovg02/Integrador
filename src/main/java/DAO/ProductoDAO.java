@@ -33,9 +33,9 @@ public class ProductoDAO<T> implements DAO<T> {
     }
 
     @Override
-    public void insert(Object o) {
+    public void insert(Object o) throws SQLException {
+        Connection conn = MySqlJDBCDAOFactory.createConnection();
         try{
-            Connection conn = MySqlJDBCDAOFactory.createConnection();
             ProductoDAO producto = (ProductoDAO) o;
             String insert =  "INSERT INTO producto (idProducto, nombre, valor) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
@@ -47,6 +47,8 @@ public class ProductoDAO<T> implements DAO<T> {
             conn.commit();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            conn.close();
         }
     }
 

@@ -62,9 +62,9 @@ public class ClienteDAO<T> implements DAO<T> {
     }
 
     @Override
-    public void insert(Object o) {
+    public void insert(Object o) throws SQLException {
+        Connection conn = MySqlJDBCDAOFactory.createConnection();
         try{
-            Connection conn = MySqlJDBCDAOFactory.createConnection();
             ClienteDAO cliente = (ClienteDAO) o;
             String insert =  "INSERT INTO cliente (idCliente, nombre, email) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
@@ -76,6 +76,8 @@ public class ClienteDAO<T> implements DAO<T> {
             conn.commit();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            conn.close();
         }
     }
 
