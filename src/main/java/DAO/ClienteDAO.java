@@ -65,12 +65,12 @@ public class ClienteDAO<T> implements DAO<T> {
     public void insert(Object o) {
         try{
             Connection conn = MySqlJDBCDAOFactory.createConnection();
-            ClienteDAO c = (ClienteDAO) o;
+            ClienteDAO cliente = (ClienteDAO) o;
             String insert =  "INSERT INTO cliente (idCliente, nombre, email) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
-            ps.setInt(1, c.getIdCliente());
-            ps.setString(2, c.getNombre());
-            ps.setString(3, c.getEmail());
+            ps.setInt(1, cliente.getIdCliente());
+            ps.setString(2, cliente.getNombre());
+            ps.setString(3, cliente.getEmail());
             ps.executeUpdate();
             ps.close();
             conn.commit();
@@ -85,7 +85,7 @@ public class ClienteDAO<T> implements DAO<T> {
         try {
 
             Connection conn = MySqlJDBCDAOFactory.createConnection();
-            String table = "CREATE TABLE cliente(" +
+            String table = "CREATE TABLE IF NOT EXISTS cliente(" +
                     "idCliente INT," +
                     "nombre VARCHAR(500)," +
                     "email VARCHAR(150), " +

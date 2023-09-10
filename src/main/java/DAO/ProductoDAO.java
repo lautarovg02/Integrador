@@ -36,12 +36,12 @@ public class ProductoDAO<T> implements DAO<T> {
     public void insert(Object o) {
         try{
             Connection conn = MySqlJDBCDAOFactory.createConnection();
-            ProductoDAO p = (ProductoDAO) o;
+            ProductoDAO producto = (ProductoDAO) o;
             String insert =  "INSERT INTO producto (idProducto, nombre, valor) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
-            ps.setInt(1, p.getIdProducto());
-            ps.setString(2, p.getNombre());
-            ps.setFloat(3, p.getValor());
+            ps.setInt(1, producto.getIdProducto());
+            ps.setString(2, producto.getNombre());
+            ps.setFloat(3, producto.getValor());
             ps.executeUpdate();
             ps.close();
             conn.commit();
@@ -72,7 +72,7 @@ public class ProductoDAO<T> implements DAO<T> {
         try {
 
             Connection conn = MySqlJDBCDAOFactory.createConnection();
-            String table = "CREATE TABLE producto(" +
+            String table = "CREATE TABLE IF NOT EXISTS producto(" +
                     "idProducto INT," +
                     "nombre VARCHAR(500)," +
                     "valor FLOAT, " +
