@@ -6,7 +6,11 @@ import interfaces.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ClienteDAO<T> implements DAO<T> {
     private int idCliente;
@@ -78,6 +82,27 @@ public class ClienteDAO<T> implements DAO<T> {
             throw new RuntimeException(e);
         } finally {
             conn.close();
+        }
+    }
+
+    public static void getClientesMasFacturados() throws SQLException{
+        try {
+            Connection conn = MySqlJDBCDAOFactory.createConnection();
+            String get = "SELECT c.idCliente, c.nombre, c.email, SUM(p.valor * fp.cantidad) AS 'facturacion' FROM cliente c " +
+                         "JOIN factura f ON c.idCliente = f.idCliente " +
+                         "JOIN factura_producto fp ON f.idFactura = fp.idFactura " +
+                         "JOIN producto p ON fp.idProducto = p.idProducto " +
+                         "GROUP BY c.idCLiente, c.nombre, c.email " +
+                         "ORDER BY facturacion DESC";
+            PreparedStatement ps = conn.prepareStatement(get);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                System.out.println(" idCliente: " + rs.getInt(1) +" Nombre: " + rs.getString(2) +" Email: " + rs.getString(3) +" Cantidad: " + rs.getInt(4));
+            }
+            conn.commit();
+            conn.close();
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

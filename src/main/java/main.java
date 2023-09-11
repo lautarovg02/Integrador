@@ -10,6 +10,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
@@ -34,8 +35,10 @@ public class main {
         facturaDAO.createTable();
         productoFacturaDAO.createTable();
 
-        ProductoDAO masRecaudo = productoDAO.getProductoQueMasRecaudo();
-        System.out.println(masRecaudo);
+       // ProductoDAO masRecaudo = productoDAO.getProductoQueMasRecaudo();
+        //System.out.println(masRecaudo);
+
+        ClienteDAO.getClientesMasFacturados();
 
 //        //PARTE 2 - CARGANDO DATOS A LA BD
 //
