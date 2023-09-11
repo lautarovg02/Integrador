@@ -14,6 +14,15 @@ public class MySqlJDBCDAOFactory extends DAOFactory {
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String DBURL = "jdbc:mysql://localhost:3306/integrador1";
 
+    private static DAOFactory instance = new MySqlJDBCDAOFactory(); // Eagerly loading of singleton instance
+
+    private MySqlJDBCDAOFactory(){
+
+    }
+    public static DAOFactory getInstance(){
+        return instance;
+    }
+
     // method to create DB connection
     public static Connection createConnection() {
         // Use DRIVER and DBURL to create a connection

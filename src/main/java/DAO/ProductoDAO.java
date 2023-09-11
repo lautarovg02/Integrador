@@ -72,11 +72,10 @@ public class ProductoDAO<T> implements DAO<T> {
     @Override
     public void createTable() {
         try {
-
             Connection conn = MySqlJDBCDAOFactory.createConnection();
             String table = "CREATE TABLE IF NOT EXISTS producto(" +
                     "idProducto INT," +
-                    "nombre VARCHAR(500)," +
+                    "nombre VARCHAR(45)," +
                     "valor FLOAT, " +
                     "PRIMARY KEY (idProducto))";
             conn.prepareStatement(table).execute();

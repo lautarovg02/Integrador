@@ -23,6 +23,7 @@ public class main {
         ProductoDAO productoDAO = daoFactory.getProductoDAO();
         ProductoFacturaDAO productoFacturaDAO = daoFactory.getProductoFacturaDAO();
 
+        // DROP TABLE
 //        productoFacturaDAO.dropTable();
 //        facturaDAO.dropTable();
 //        clienteDAO.dropTable();
@@ -35,12 +36,7 @@ public class main {
         facturaDAO.createTable();
         productoFacturaDAO.createTable();
 
-       // ProductoDAO masRecaudo = productoDAO.getProductoQueMasRecaudo();
-        //System.out.println(masRecaudo);
-
-        ClienteDAO.getClientesMasFacturados();
-
-//        //PARTE 2 - CARGANDO DATOS A LA BD
+        //        //PARTE 2 - CARGANDO DATOS A LA BD
 //
 //        CSVParser parserProductos = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/productos.csv"));
 //        for(CSVRecord row: parserProductos) {
@@ -65,6 +61,13 @@ public class main {
 //            ProductoFacturaDAO newProductoFactura = new ProductoFacturaDAO<>(parseInt(row.get("idFactura")), parseInt(row.get("idProducto")), parseInt(row.get("cantidad")));
 //            newProductoFactura.insert(newProductoFactura);
 //        }
+
+        // EJERCICIO 3 - PRODUCTO QUE MAS RECAUDO
+//        ProductoDAO masRecaudo = productoDAO.getProductoQueMasRecaudo();
+//        System.out.println(masRecaudo);
+
+        // EJERCICIO 4 - CLIENTES CON MAS FACTURACION
+//        ClienteDAO.getClientesMasFacturados();
 
         //MOSTRANDO TABLAS
 //        clienteDAO.showTable();

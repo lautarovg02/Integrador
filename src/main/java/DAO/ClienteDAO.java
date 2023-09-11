@@ -53,7 +53,18 @@ public class ClienteDAO<T> implements DAO<T> {
 
     @Override
     public void showTable() {
-
+        try {
+            Connection conn = MySqlJDBCDAOFactory.createConnection();
+            String select = "SELECT * FROM cliente ";
+            PreparedStatement ps = conn.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println( "IdCliente:" + rs.getInt(1) + ",  Cliente: " + rs.getString(2) + " , Email:" + rs.getString(3) );
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
