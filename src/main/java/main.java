@@ -34,6 +34,8 @@ public class main {
         facturaDAO.createTable();
         productoFacturaDAO.createTable();
 
+        ProductoDAO masRecaudo = productoDAO.getProductoQueMasRecaudo();
+        System.out.println(masRecaudo);
 
 //        //PARTE 2 - CARGANDO DATOS A LA BD
 //
@@ -62,10 +64,10 @@ public class main {
 //        }
 
         //MOSTRANDO TABLAS
-        clienteDAO.showTable();
-        productoDAO.showTable();
-        facturaDAO.showTable();
-        productoFacturaDAO.showTable();
+//        clienteDAO.showTable();
+//        productoDAO.showTable();
+//        facturaDAO.showTable();
+//        productoFacturaDAO.showTable();
 
     }
 }

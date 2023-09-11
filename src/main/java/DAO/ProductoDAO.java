@@ -98,6 +98,31 @@ public class ProductoDAO<T> implements DAO<T> {
         }
     }
 
+    public ProductoDAO<T> getProductoQueMasRecaudo(){
+        try {
+            Connection conn = MySqlJDBCDAOFactory.createConnection();
+            String query = "SELECT p.valor, p.idProducto, p.nombre, SUM(fp.cantidad * p.valor) AS recaudacion " +
+                    "FROM producto AS p " +
+                    "JOIN factura_producto AS fp ON p.idProducto = fp.idProducto " +
+                    "GROUP BY p.idProducto, p.nombre " +
+                    "ORDER BY recaudacion DESC " +
+                    "LIMIT 1";
+
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            ProductoDAO<T> productoMasReacudado = null;
+            while(rs.next()){
+                productoMasReacudado = new ProductoDAO(rs.getInt("idProducto"), rs.getString("nombre"), rs.getFloat("valor"));
+            }
+            conn.commit();
+            conn.close();
+            return productoMasReacudado;
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public int getIdProducto() {
         return this.idProducto;
     }
