@@ -27,10 +27,10 @@ public class main {
         InterfaceProductoFacturaDAO mySQLProductoFacturaDAO = daoFactory.getProductoFacturaDAO();
 
         // DROP TABLE
-        /*mySQLProductoFacturaDAO.dropTable();
+        mySQLProductoFacturaDAO.dropTable();
         mySQLFacturaDAO.dropTable();
         mySQLClienteDAO.dropTable();
-        mySQLProductoDAO.dropTable();*/
+        mySQLProductoDAO.dropTable();
 
 
         // PARTE 1 - CREANDO ESQUEMA
@@ -42,14 +42,14 @@ public class main {
         //        //PARTE 2 - CARGANDO DATOS A LA BD
 //
         CSVParser parserProductos = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/productos.csv"));
-        for(CSVRecord row: parserProductos) {
-            InterfaceProductoDAO newProducto = new MySQLProductoDAO(parseInt(row.get("idProducto")),row.get("nombre"), parseFloat(row.get("valor")));
+        for (CSVRecord row : parserProductos) {
+            InterfaceProductoDAO newProducto = new MySQLProductoDAO(parseInt(row.get("idProducto")), row.get("nombre"), parseFloat(row.get("valor")));
             mySQLProductoDAO.insert(newProducto);
         }
 
         CSVParser parserClientes = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/clientes.csv"));
         for (CSVRecord row : parserClientes) {
-            InterfaceClienteDAO newCliente = new MySQLClienteDAO(parseInt(row.get("idCliente")),row.get("nombre"),row.get("email"));
+            InterfaceClienteDAO newCliente = new MySQLClienteDAO(parseInt(row.get("idCliente")), row.get("nombre"), row.get("email"));
             mySQLClienteDAO.insert(newCliente);
         }
 
@@ -67,16 +67,18 @@ public class main {
 
         // EJERCICIO 3 - PRODUCTO QUE MAS RECAUDO
         InterfaceProductoDAO masRecaudo = mySQLProductoDAO.getProductoQueMasRecaudo();
-        System.out.println(masRecaudo);
+        System.out.println(masRecaudo+"\n");
 
         // EJERCICIO 4 - CLIENTES CON MAS FACTURACION
         mySQLClienteDAO.getClientesMasFacturados();
 
         //MOSTRANDO TABLAS
-        mySQLClienteDAO.showTable();
-        mySQLProductoDAO.showTable();
-        mySQLFacturaDAO.showTable();
-        mySQLProductoFacturaDAO.showTable();
+//        mySQLClienteDAO.showTable();
+//        mySQLProductoDAO.showTable();
+//        mySQLFacturaDAO.showTable();
+//        mySQLProductoFacturaDAO.showTable();
+
+
 
     }
 }

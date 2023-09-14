@@ -4,6 +4,10 @@ import DAO.MySQLClienteDAO;
 import DAO.MySQLFacturaDAO;
 import DAO.MySQLProductoDAO;
 import DAO.MySQLProductoFacturaDAO;
+import interfaces.InterfaceClienteDAO;
+import interfaces.InterfaceFacturaDAO;
+import interfaces.InterfaceProductoDAO;
+import interfaces.InterfaceProductoFacturaDAO;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -16,10 +20,11 @@ public class MySqlJDBCDAOFactory extends DAOFactory {
 
     private static DAOFactory instance = new MySqlJDBCDAOFactory(); // Eagerly loading of singleton instance
 
-    private MySqlJDBCDAOFactory(){
+    private MySqlJDBCDAOFactory() {
 
     }
-    public static DAOFactory getInstance(){
+
+    public static DAOFactory getInstance() {
         return instance;
     }
 
@@ -54,22 +59,22 @@ public class MySqlJDBCDAOFactory extends DAOFactory {
     }
 
     @Override
-    public MySQLProductoDAO getProductoDAO() {
+    public InterfaceProductoDAO getProductoDAO() {
         return new MySQLProductoDAO();
     }
 
     @Override
-    public MySQLFacturaDAO getFacturaDAO() {
+    public InterfaceFacturaDAO getFacturaDAO() {
         return new MySQLFacturaDAO();
     }
 
     @Override
-    public MySQLClienteDAO getClienteDAO() {
+    public InterfaceClienteDAO getClienteDAO() {
         return new MySQLClienteDAO();
     }
 
     @Override
-    public MySQLProductoFacturaDAO getProductoFacturaDAO() {
+    public InterfaceProductoFacturaDAO getProductoFacturaDAO() {
         return new MySQLProductoFacturaDAO();
     }
 }

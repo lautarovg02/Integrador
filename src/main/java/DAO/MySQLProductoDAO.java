@@ -10,9 +10,9 @@ import java.sql.SQLException;
 
 public class MySQLProductoDAO<T> implements InterfaceProductoDAO<T> {
 
-   private int idProducto;
-   private String nombre;
-   private float valor;
+    private int idProducto;
+    private String nombre;
+    private float valor;
 
     public MySQLProductoDAO() {
     }
@@ -35,9 +35,9 @@ public class MySQLProductoDAO<T> implements InterfaceProductoDAO<T> {
     @Override
     public void insert(Object o) throws SQLException {
         Connection conn = MySqlJDBCDAOFactory.createConnection();
-        try{
+        try {
             MySQLProductoDAO producto = (MySQLProductoDAO) o;
-            String insert =  "INSERT INTO producto (idProducto, nombre, valor) VALUES (?,?,?)";
+            String insert = "INSERT INTO producto (idProducto, nombre, valor) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
             ps.setInt(1, producto.getIdProducto());
             ps.setString(2, producto.getNombre());
@@ -60,7 +60,7 @@ public class MySQLProductoDAO<T> implements InterfaceProductoDAO<T> {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getInt(1) + " , " + rs.getString(2) + ", " + rs.getFloat(3) );
+                System.out.println(rs.getInt(1) + " , " + rs.getString(2) + ", " + rs.getFloat(3));
             }
             conn.close();
         } catch (SQLException e) {
@@ -80,7 +80,7 @@ public class MySQLProductoDAO<T> implements InterfaceProductoDAO<T> {
                     "PRIMARY KEY (idProducto))";
             conn.prepareStatement(table).execute();
             conn.commit();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -92,12 +92,12 @@ public class MySQLProductoDAO<T> implements InterfaceProductoDAO<T> {
             String table = "DROP TABLE producto";
             conn.prepareStatement(table).execute();
             conn.commit();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public MySQLProductoDAO<T> getProductoQueMasRecaudo(){
+    public MySQLProductoDAO<T> getProductoQueMasRecaudo() {
         try {
             Connection conn = MySqlJDBCDAOFactory.createConnection();
             String query = "SELECT p.valor, p.idProducto, p.nombre, SUM(fp.cantidad * p.valor) AS recaudacion " +
@@ -110,13 +110,13 @@ public class MySQLProductoDAO<T> implements InterfaceProductoDAO<T> {
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             MySQLProductoDAO<T> productoMasReacudado = null;
-            while(rs.next()){
+            while (rs.next()) {
                 productoMasReacudado = new MySQLProductoDAO(rs.getInt("idProducto"), rs.getString("nombre"), rs.getFloat("valor"));
             }
             conn.commit();
             conn.close();
             return productoMasReacudado;
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -142,7 +142,7 @@ public class MySQLProductoDAO<T> implements InterfaceProductoDAO<T> {
         return this.valor;
     }
 
-    public  void setValor(float valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
 }

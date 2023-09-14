@@ -36,7 +36,6 @@ public class MySQLClienteDAO<T> implements InterfaceClienteDAO<T> {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-
     }
 
     public String getEmail() {
@@ -55,7 +54,7 @@ public class MySQLClienteDAO<T> implements InterfaceClienteDAO<T> {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                System.out.println( "IdCliente:" + rs.getInt(1) + ",  Cliente: " + rs.getString(2) + " , Email:" + rs.getString(3) );
+                System.out.println("IdCliente:" + rs.getInt(1) + ",  Cliente: " + rs.getString(2) + " , Email:" + rs.getString(3));
             }
             conn.close();
         } catch (SQLException e) {
@@ -75,9 +74,9 @@ public class MySQLClienteDAO<T> implements InterfaceClienteDAO<T> {
     @Override
     public void insert(Object o) throws SQLException {
         Connection conn = MySqlJDBCDAOFactory.createConnection();
-        try{
+        try {
             MySQLClienteDAO cliente = (MySQLClienteDAO) o;
-            String insert =  "INSERT INTO cliente (idCliente, nombre, email) VALUES (?,?,?)";
+            String insert = "INSERT INTO cliente (idCliente, nombre, email) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
             ps.setInt(1, cliente.getIdCliente());
             ps.setString(2, cliente.getNombre());
@@ -97,19 +96,19 @@ public class MySQLClienteDAO<T> implements InterfaceClienteDAO<T> {
         try {
             Connection conn = MySqlJDBCDAOFactory.createConnection();
             String get = "SELECT c.idCliente, c.nombre, c.email, SUM(p.valor * fp.cantidad) AS 'facturacion' FROM cliente c " +
-                         "JOIN factura f ON c.idCliente = f.idCliente " +
-                         "JOIN factura_producto fp ON f.idFactura = fp.idFactura " +
-                         "JOIN producto p ON fp.idProducto = p.idProducto " +
-                         "GROUP BY c.idCLiente, c.nombre, c.email " +
-                         "ORDER BY facturacion DESC";
+                    "JOIN factura f ON c.idCliente = f.idCliente " +
+                    "JOIN factura_producto fp ON f.idFactura = fp.idFactura " +
+                    "JOIN producto p ON fp.idProducto = p.idProducto " +
+                    "GROUP BY c.idCLiente, c.nombre, c.email " +
+                    "ORDER BY facturacion DESC";
             PreparedStatement ps = conn.prepareStatement(get);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
-                System.out.println(" idCliente: " + rs.getInt(1) +" Nombre: " + rs.getString(2) +" Email: " + rs.getString(3) +" Cantidad: " + rs.getInt(4));
+            while (rs.next()) {
+                System.out.println(" idCliente: " + rs.getInt(1) + " Nombre: " + rs.getString(2) + " Email: " + rs.getString(3) + " Cantidad: " + rs.getInt(4));
             }
             conn.commit();
             conn.close();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -127,7 +126,7 @@ public class MySQLClienteDAO<T> implements InterfaceClienteDAO<T> {
                     "PRIMARY KEY(idCliente))";
             conn.prepareStatement(table).execute();
             conn.commit();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -140,7 +139,7 @@ public class MySQLClienteDAO<T> implements InterfaceClienteDAO<T> {
             String table = "DROP TABLE cliente";
             conn.prepareStatement(table).execute();
             conn.commit();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

@@ -24,7 +24,9 @@ public class MySQLFacturaDAO<T> implements InterfaceFacturaDAO<T> {
         return this.idFactura;
     }
 
-    public void setIdFactura(int idFactura) {this.idFactura = idFactura;}
+    public void setIdFactura(int idFactura) {
+        this.idFactura = idFactura;
+    }
 
     public int getIdCliente() {
         return this.idCliente;
@@ -39,11 +41,11 @@ public class MySQLFacturaDAO<T> implements InterfaceFacturaDAO<T> {
         try {
             Connection conn = MySqlJDBCDAOFactory.createConnection();
             String select = "SELECT f.idFactura, c.nombre AS `Cliente`, c.email FROM `factura` f " +
-                            "JOIN cliente c ON f.idCliente = c.idCliente;";
+                    "JOIN cliente c ON f.idCliente = c.idCliente;";
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                System.out.println( "IdFactura:" + rs.getInt(1) + ",  Cliente: " + rs.getString(2) + " , Email:" + rs.getString(3) );
+                System.out.println("IdFactura:" + rs.getInt(1) + ",  Cliente: " + rs.getString(2) + " , Email:" + rs.getString(3));
             }
             conn.close();
         } catch (SQLException e) {
@@ -54,9 +56,9 @@ public class MySQLFacturaDAO<T> implements InterfaceFacturaDAO<T> {
     @Override
     public void insert(Object o) throws SQLException {
         Connection conn = MySqlJDBCDAOFactory.createConnection();
-        try{
+        try {
             MySQLFacturaDAO mySQLFacturaDAO = (MySQLFacturaDAO) o;
-            String insert =  "INSERT INTO factura (idFactura, idCliente) VALUES (?,?)";
+            String insert = "INSERT INTO factura (idFactura, idCliente) VALUES (?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
             ps.setInt(1, mySQLFacturaDAO.getIdFactura());
             ps.setInt(2, mySQLFacturaDAO.getIdCliente());
@@ -65,7 +67,7 @@ public class MySQLFacturaDAO<T> implements InterfaceFacturaDAO<T> {
             conn.commit();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             conn.close();
         }
     }
@@ -103,7 +105,7 @@ public class MySQLFacturaDAO<T> implements InterfaceFacturaDAO<T> {
             String table = "DROP TABLE factura";
             conn.prepareStatement(table).execute();
             conn.commit();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
