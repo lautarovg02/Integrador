@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class main {
@@ -26,10 +27,10 @@ public class main {
         InterfaceProductoFacturaDAO mySQLProductoFacturaDAO = daoFactory.getProductoFacturaDAO();
 
         // DROP TABLE
-//        productoFacturaDAO.dropTable();
-//        facturaDAO.dropTable();
-//        clienteDAO.dropTable();
-//        productoDAO.dropTable();
+        /*mySQLProductoFacturaDAO.dropTable();
+        mySQLFacturaDAO.dropTable();
+        mySQLClienteDAO.dropTable();
+        mySQLProductoDAO.dropTable();*/
 
 
         // PARTE 1 - CREANDO ESQUEMA
@@ -40,29 +41,29 @@ public class main {
 
         //        //PARTE 2 - CARGANDO DATOS A LA BD
 //
-//        CSVParser parserProductos = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/productos.csv"));
-//        for(CSVRecord row: parserProductos) {
-//            InterfaceProductoDAO newProducto = new MySQLProductoDAO(parseInt(row.get("idProducto")),row.get("nombre"),parseFloat(row.get("valor")));
-//            mySQLProductoDAO.insert(newProducto);
-//        }
-//
-//        CSVParser parserClientes = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/clientes.csv"));
-//        for (CSVRecord row : parserClientes) {
-//            InterfaceClienteDAO newCliente = new MySQLClienteDAO(parseInt(row.get("idCliente")),row.get("nombre"),row.get("email"));
-//            mySQLClienteDAO.insert(newCliente);
-//        }
-//
-//        CSVParser parserFacturas = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/facturas.csv"));
-//        for (CSVRecord row : parserFacturas) {
-//            InterfaceFacturaDAO newFactura = new MySQLFacturaDAO(parseInt(row.get("idFactura")), parseInt(row.get("idCliente")));
-//            mySQLFacturaDAO.insert(newFactura);
-//        }
-//
-//        CSVParser parserProductoFactura = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/facturas-productos.csv"));
-//        for (CSVRecord row : parserProductoFactura) {
-//            InterfaceProductoFacturaDAO newProductoFactura = new MySQLProductoFacturaDAO(parseInt(row.get("idFactura")), parseInt(row.get("idProducto")), parseInt(row.get("cantidad")));
-//            mySQLProductoFacturaDAO.insert(newProductoFactura);
-//        }
+        CSVParser parserProductos = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/productos.csv"));
+        for(CSVRecord row: parserProductos) {
+            InterfaceProductoDAO newProducto = new MySQLProductoDAO(parseInt(row.get("idProducto")),row.get("nombre"), parseFloat(row.get("valor")));
+            mySQLProductoDAO.insert(newProducto);
+        }
+
+        CSVParser parserClientes = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/clientes.csv"));
+        for (CSVRecord row : parserClientes) {
+            InterfaceClienteDAO newCliente = new MySQLClienteDAO(parseInt(row.get("idCliente")),row.get("nombre"),row.get("email"));
+            mySQLClienteDAO.insert(newCliente);
+        }
+
+        CSVParser parserFacturas = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/facturas.csv"));
+        for (CSVRecord row : parserFacturas) {
+            InterfaceFacturaDAO newFactura = new MySQLFacturaDAO(parseInt(row.get("idFactura")), parseInt(row.get("idCliente")));
+            mySQLFacturaDAO.insert(newFactura);
+        }
+
+        CSVParser parserProductoFactura = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/java/csv/facturas-productos.csv"));
+        for (CSVRecord row : parserProductoFactura) {
+            InterfaceProductoFacturaDAO newProductoFactura = new MySQLProductoFacturaDAO(parseInt(row.get("idFactura")), parseInt(row.get("idProducto")), parseInt(row.get("cantidad")));
+            mySQLProductoFacturaDAO.insert(newProductoFactura);
+        }
 
         // EJERCICIO 3 - PRODUCTO QUE MAS RECAUDO
         InterfaceProductoDAO masRecaudo = mySQLProductoDAO.getProductoQueMasRecaudo();
@@ -72,10 +73,10 @@ public class main {
         mySQLClienteDAO.getClientesMasFacturados();
 
         //MOSTRANDO TABLAS
-//        clienteDAO.showTable();
-//        productoDAO.showTable();
-//        facturaDAO.showTable();
-//        productoFacturaDAO.showTable();
+        mySQLClienteDAO.showTable();
+        mySQLProductoDAO.showTable();
+        mySQLFacturaDAO.showTable();
+        mySQLProductoFacturaDAO.showTable();
 
     }
 }
