@@ -27,10 +27,10 @@ public class main {
         InterfaceProductoFacturaDAO mySQLProductoFacturaDAO = daoFactory.getProductoFacturaDAO();
 
         // DROP TABLE
-        mySQLProductoFacturaDAO.dropTable();
-        mySQLFacturaDAO.dropTable();
-        mySQLClienteDAO.dropTable();
-        mySQLProductoDAO.dropTable();
+//        mySQLProductoFacturaDAO.dropTable();
+//        mySQLFacturaDAO.dropTable();
+//        mySQLClienteDAO.dropTable();
+//        mySQLProductoDAO.dropTable();
 
 
         // PARTE 1 - CREANDO ESQUEMA
