@@ -1,9 +1,9 @@
 package factory;
 
-import DAO.ClienteDAO;
-import DAO.FacturaDAO;
-import DAO.ProductoDAO;
-import DAO.ProductoFacturaDAO;
+import DAO.MySQLClienteDAO;
+import DAO.MySQLFacturaDAO;
+import DAO.MySQLProductoDAO;
+import DAO.MySQLProductoFacturaDAO;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -54,22 +54,22 @@ public class MySqlJDBCDAOFactory extends DAOFactory {
     }
 
     @Override
-    public ProductoDAO getProductoDAO() {
-        return new ProductoDAO();
+    public MySQLProductoDAO getProductoDAO() {
+        return new MySQLProductoDAO();
     }
 
     @Override
-    public FacturaDAO getFacturaDAO() {
-        return new FacturaDAO();
+    public MySQLFacturaDAO getFacturaDAO() {
+        return new MySQLFacturaDAO();
     }
 
     @Override
-    public ClienteDAO getClienteDAO() {
-        return new ClienteDAO();
+    public MySQLClienteDAO getClienteDAO() {
+        return new MySQLClienteDAO();
     }
 
     @Override
-    public ProductoFacturaDAO getProductoFacturaDAO() {
-        return new ProductoFacturaDAO();
+    public MySQLProductoFacturaDAO getProductoFacturaDAO() {
+        return new MySQLProductoFacturaDAO();
     }
 }

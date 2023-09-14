@@ -1,23 +1,23 @@
 package DAO;
 
 import factory.MySqlJDBCDAOFactory;
-import interfaces.DAO;
+import interfaces.InterfaceFacturaDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class FacturaDAO<T> implements DAO<T> {
+public class MySQLFacturaDAO<T> implements InterfaceFacturaDAO<T> {
     private int idFactura;
     private int idCliente;
 
-    public FacturaDAO(int idFactura, int idCliente) {
+    public MySQLFacturaDAO(int idFactura, int idCliente) {
         this.idFactura = idFactura;
         this.idCliente = idCliente;
     }
 
-    public FacturaDAO() {
+    public MySQLFacturaDAO() {
     }
 
     public int getIdFactura() {
@@ -55,11 +55,11 @@ public class FacturaDAO<T> implements DAO<T> {
     public void insert(Object o) throws SQLException {
         Connection conn = MySqlJDBCDAOFactory.createConnection();
         try{
-            FacturaDAO facturaDAO = (FacturaDAO) o;
+            MySQLFacturaDAO mySQLFacturaDAO = (MySQLFacturaDAO) o;
             String insert =  "INSERT INTO factura (idFactura, idCliente) VALUES (?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
-            ps.setInt(1, facturaDAO.getIdFactura());
-            ps.setInt(2, facturaDAO.getIdCliente());
+            ps.setInt(1, mySQLFacturaDAO.getIdFactura());
+            ps.setInt(2, mySQLFacturaDAO.getIdCliente());
             ps.executeUpdate();
             ps.close();
             conn.commit();

@@ -1,10 +1,9 @@
 package factory;
 
-import DAO.ClienteDAO;
-import DAO.FacturaDAO;
-import DAO.ProductoDAO;
-import DAO.ProductoFacturaDAO;
-import interfaces.DAO;
+import DAO.MySQLClienteDAO;
+import DAO.MySQLFacturaDAO;
+import DAO.MySQLProductoDAO;
+import DAO.MySQLProductoFacturaDAO;
 
 
 public  abstract class DAOFactory {
@@ -14,10 +13,10 @@ public  abstract class DAOFactory {
     public static final int MYSQL_JDBC = 1;
     public static final int DERBY_JDBC = 2;
     public static final int JPA_HIBERNATE = 3;
-    public abstract ProductoDAO getProductoDAO();
-    public abstract FacturaDAO getFacturaDAO();
-    public abstract ClienteDAO getClienteDAO();
-    public abstract ProductoFacturaDAO getProductoFacturaDAO();
+    public abstract MySQLProductoDAO getProductoDAO();
+    public abstract MySQLFacturaDAO getFacturaDAO();
+    public abstract MySQLClienteDAO getClienteDAO();
+    public abstract MySQLProductoFacturaDAO getProductoFacturaDAO();
 
     public static DAOFactory getDAOFactory(int whichFactory) {
         switch (whichFactory) {

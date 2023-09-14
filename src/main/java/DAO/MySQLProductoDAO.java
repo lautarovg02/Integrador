@@ -1,23 +1,23 @@
 package DAO;
 
 import factory.MySqlJDBCDAOFactory;
-import interfaces.DAO;
+import interfaces.InterfaceProductoDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ProductoDAO<T> implements DAO<T> {
+public class MySQLProductoDAO<T> implements InterfaceProductoDAO<T> {
 
    private int idProducto;
    private String nombre;
    private float valor;
 
-    public ProductoDAO() {
+    public MySQLProductoDAO() {
     }
 
-    public ProductoDAO(int idProducto, String nombre, float valor) {
+    public MySQLProductoDAO(int idProducto, String nombre, float valor) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.valor = valor;
@@ -36,7 +36,7 @@ public class ProductoDAO<T> implements DAO<T> {
     public void insert(Object o) throws SQLException {
         Connection conn = MySqlJDBCDAOFactory.createConnection();
         try{
-            ProductoDAO producto = (ProductoDAO) o;
+            MySQLProductoDAO producto = (MySQLProductoDAO) o;
             String insert =  "INSERT INTO producto (idProducto, nombre, valor) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
             ps.setInt(1, producto.getIdProducto());
@@ -97,7 +97,7 @@ public class ProductoDAO<T> implements DAO<T> {
         }
     }
 
-    public ProductoDAO<T> getProductoQueMasRecaudo(){
+    public MySQLProductoDAO<T> getProductoQueMasRecaudo(){
         try {
             Connection conn = MySqlJDBCDAOFactory.createConnection();
             String query = "SELECT p.valor, p.idProducto, p.nombre, SUM(fp.cantidad * p.valor) AS recaudacion " +
@@ -109,9 +109,9 @@ public class ProductoDAO<T> implements DAO<T> {
 
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            ProductoDAO<T> productoMasReacudado = null;
+            MySQLProductoDAO<T> productoMasReacudado = null;
             while(rs.next()){
-                productoMasReacudado = new ProductoDAO(rs.getInt("idProducto"), rs.getString("nombre"), rs.getFloat("valor"));
+                productoMasReacudado = new MySQLProductoDAO(rs.getInt("idProducto"), rs.getString("nombre"), rs.getFloat("valor"));
             }
             conn.commit();
             conn.close();

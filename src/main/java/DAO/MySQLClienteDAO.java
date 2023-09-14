@@ -1,26 +1,22 @@
 package DAO;
 
-import factory.DAOFactory;
 import factory.MySqlJDBCDAOFactory;
-import interfaces.DAO;
+import interfaces.InterfaceClienteDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-public class ClienteDAO<T> implements DAO<T> {
+public class MySQLClienteDAO<T> implements InterfaceClienteDAO<T> {
     private int idCliente;
     private String nombre;
     private String email;
 
-    public ClienteDAO() {
+    public MySQLClienteDAO() {
     }
 
-    public ClienteDAO(int idCliente, String nombre, String email) {
+    public MySQLClienteDAO(int idCliente, String nombre, String email) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.email = email;
@@ -80,7 +76,7 @@ public class ClienteDAO<T> implements DAO<T> {
     public void insert(Object o) throws SQLException {
         Connection conn = MySqlJDBCDAOFactory.createConnection();
         try{
-            ClienteDAO cliente = (ClienteDAO) o;
+            MySQLClienteDAO cliente = (MySQLClienteDAO) o;
             String insert =  "INSERT INTO cliente (idCliente, nombre, email) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
             ps.setInt(1, cliente.getIdCliente());
@@ -96,7 +92,8 @@ public class ClienteDAO<T> implements DAO<T> {
         }
     }
 
-    public static void getClientesMasFacturados() throws SQLException{
+    @Override
+    public void getClientesMasFacturados() {
         try {
             Connection conn = MySqlJDBCDAOFactory.createConnection();
             String get = "SELECT c.idCliente, c.nombre, c.email, SUM(p.valor * fp.cantidad) AS 'facturacion' FROM cliente c " +

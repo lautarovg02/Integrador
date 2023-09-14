@@ -1,14 +1,14 @@
 package DAO;
 
 import factory.MySqlJDBCDAOFactory;
-import interfaces.DAO;
+import interfaces.InterfaceProductoFacturaDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ProductoFacturaDAO<T> implements DAO<T> {
+public class MySQLProductoFacturaDAO<T> implements InterfaceProductoFacturaDAO<T> {
 
     private int idFactura;
     private int idProducto;
@@ -23,10 +23,10 @@ public class ProductoFacturaDAO<T> implements DAO<T> {
                 '}';
     }
 
-    public ProductoFacturaDAO() {
+    public MySQLProductoFacturaDAO() {
     }
 
-    public ProductoFacturaDAO(int idFactura, int idProducto, int cantidad) {
+    public MySQLProductoFacturaDAO(int idFactura, int idProducto, int cantidad) {
         this.idFactura = idFactura;
         this.idProducto = idProducto;
         this.cantidad = cantidad;
@@ -82,7 +82,7 @@ public class ProductoFacturaDAO<T> implements DAO<T> {
     public void insert(Object o) throws SQLException {
         Connection conn = MySqlJDBCDAOFactory.createConnection();
         try {
-            ProductoFacturaDAO productoFacturado = (ProductoFacturaDAO) o;
+            MySQLProductoFacturaDAO productoFacturado = (MySQLProductoFacturaDAO) o;
             String insert = "INSERT INTO factura_producto (idFactura, IdProducto, cantidad) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
             ps.setInt(1, productoFacturado.getIdFactura());
